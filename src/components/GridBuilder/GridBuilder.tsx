@@ -1,4 +1,3 @@
-import './GridBuilder.styles.css';
 import {
   AllCommunityModule,
   type ColumnMovedEvent,
@@ -7,6 +6,7 @@ import {
 } from 'ag-grid-community';
 import { AgGridProvider, AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import { useRef } from 'react';
+import './GridBuilder.styles.css';
 
 import type { AgGridReactProps } from 'ag-grid-react';
 // Grid Builder: Takes grid config and data to output grid
@@ -20,6 +20,8 @@ export const GridBuilder = ({
   const gridRef = useRef(null);
   const modules = [AllCommunityModule];
 
+  // Ideally this should be in a utility file with some additional safety checks, but keeping it here for now
+  // (This as in anything to do with localStorage)
   const saveToLocalStorage = (columnState: ColumnState[]) => {
     localStorage.setItem(`${gridName}-Col-State`, JSON.stringify(columnState));
   };

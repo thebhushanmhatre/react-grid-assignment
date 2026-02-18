@@ -1,9 +1,13 @@
+import type { ColDef } from 'ag-grid-community';
+import { DepartmentCR } from '../components/GridBuilder/cellRenderers/DepartmentCR';
 import { extractHeader } from '../utilities';
 
 export function useColDefs(
   data: Record<string, string | number | boolean | string[]>[],
+  // setGroupBy: React.Dispatch<React.SetStateAction<string>>,
+  // setFilterOnValue: React.Dispatch<React.SetStateAction<string>>,
 ) {
-  const colDefs = [];
+  const colDefs: ColDef[] = [];
   const skipColumns = ['id', 'salary', 'performanceRating'];
 
   // Basic
@@ -18,10 +22,40 @@ export function useColDefs(
         valueFormatter: (p: { value: string[] }) => p.value.join(', '),
       });
     } else {
-      colDefs.push({
+      const colDef: ColDef = {
         field: key,
         headerName: extractHeader(key),
-      });
+      };
+
+      if (key == 'department') {
+        // Adding some random colors to show demonstrate how to style cell
+        const bgColorMapping: Record<string, string> = {
+          Engineering: 'skyblue',
+          HR: 'pink',
+          Marketing: 'lightgreen',
+          Finance: 'coral',
+          Sales: 'gold',
+        };
+
+        colDef.cellRenderer = DepartmentCR;
+        colDef.cellRendererParams = {
+          // setGroupBy,
+          // setFilterOnValue,
+        };
+        colDef.cellStyle = (params) => {
+          if (params.value && bgColorMapping[params.value]) {
+            return {
+              backgroundColor: bgColorMapping[params.value],
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            };
+          }
+          return null;
+        };
+      }
+
+      colDefs.push(colDef);
     }
   }
 

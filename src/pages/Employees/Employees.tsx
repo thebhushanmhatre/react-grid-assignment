@@ -15,7 +15,11 @@ export const Employees = () => {
   const { employeesData, groupByKeys, valuesToSelectOptions } = useFetchData();
   const valueOptions = valuesToSelectOptions[groupBy];
 
-  const employeesColDefs = useColDefs(employeesData);
+  const employeesColDefs = useColDefs(
+    employeesData,
+    // setGroupBy,
+    // setFilterOnValue,
+  );
 
   const dataToDisplay = useMemo(() => {
     if (groupBy && filterOnValue) {
