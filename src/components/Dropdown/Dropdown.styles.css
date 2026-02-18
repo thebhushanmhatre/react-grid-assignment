@@ -1,0 +1,14 @@
+.dropdown-container {
+  display: flex;
+  font-size: 16px;
+  gap: 5px;
+  margin-right: 5px;
+  align-items: center;
+}
+
+.dropdown-select {
+  padding: 5px;
+  border-radius: 5px;
+  width: 300px;
+  height: 40px;
+}

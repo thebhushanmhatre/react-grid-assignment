@@ -9,7 +9,20 @@ export function useColDefs(
   // Basic
   for (const key in data[0]) {
     if (skipColumns.includes(key)) continue;
-    colDefs.push({ field: key, headerName: extractHeader(key), filter: true });
+    if (key == 'skills') {
+      colDefs.push({
+        field: key,
+        headerName: extractHeader(key),
+        filter: true,
+        width: 400,
+        valueFormatter: (p: { value: string[] }) => p.value.join(', '),
+      });
+    } else {
+      colDefs.push({
+        field: key,
+        headerName: extractHeader(key),
+      });
+    }
   }
 
   // For Advance stuff
