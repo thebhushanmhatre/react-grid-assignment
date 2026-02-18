@@ -2,8 +2,8 @@ import './EmployeeDetails.styles.css';
 import { Tag } from '../../components';
 import { extractHeader } from '../../utilities';
 
-import type { UserType } from '../../models/User';
-export const EmployeeDetails = ({
+import type { UserType } from '../../models';
+const EmployeeDetails = ({
   userDetails,
   setUserId,
   setGroupBy,
@@ -112,3 +112,5 @@ export const EmployeeDetails = ({
     </div>
   );
 };
+
+export default EmployeeDetails;

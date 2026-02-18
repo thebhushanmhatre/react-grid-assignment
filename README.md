@@ -15,6 +15,8 @@ At FactWise, we use client-side AG Grid for all our tables and grids. We’d lik
 - Clone this repo
 - Install the packages using "npm install"
 - Run the app using "npm run dev"
+- To run the production build, run these two commands: "npm run build" and then "npm run preview"
+- Prefer Production build to check Lighthouse Report
 
 ### Folder Structure and how to navigate in this app and the practices that I like following
 

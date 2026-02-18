@@ -1,10 +1,15 @@
 import type { RowDoubleClickedEvent } from 'ag-grid-community';
-import { useMemo, useState } from 'react';
-import { Dropdown, GridBuilder } from '../../components';
+import { lazy, Suspense, useMemo, useState } from 'react';
+import { Dropdown, GridBuilder, Loading } from '../../components';
 import { useColDefs, useFetchData } from '../../hooks';
-import type { UserType } from '../../models/User';
-import { EmployeeDetails } from '../EmployeeDetails/EmployeeDetails';
+import type { UserType } from '../../models';
 import './Employees.styles.css';
+
+// Not necessarily required but adding for performance optimization demonstration
+// Code splitting, Deferring this component from our main bundle
+const EmployeeDetails = lazy(
+  () => import('../EmployeeDetails/EmployeeDetails'),
+);
 
 export const Employees = () => {
   // As an alternative to routing for now, we will use a state variable to control which page to display
@@ -39,13 +44,15 @@ export const Employees = () => {
   if (userId) {
     if (userDetails)
       return (
-        <EmployeeDetails
-          setUserId={setUserId}
-          userDetails={userDetails}
-          setGroupBy={setGroupBy}
-          setFilterOnValue={setFilterOnValue}
-          groupByKeys={groupByKeys}
-        />
+        <Suspense fallback={<Loading />}>
+          <EmployeeDetails
+            setUserId={setUserId}
+            userDetails={userDetails}
+            setGroupBy={setGroupBy}
+            setFilterOnValue={setFilterOnValue}
+            groupByKeys={groupByKeys}
+          />
+        </Suspense>
       );
 
     return <p>User not found</p>;

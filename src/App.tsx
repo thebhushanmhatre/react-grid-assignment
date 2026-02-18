@@ -2,9 +2,9 @@ import { Employees } from './pages';
 
 function App() {
   return (
-    <div className="app-container">
+    <main className="app-container">
       <Employees />
-    </div>
+    </main>
   );
 }
 

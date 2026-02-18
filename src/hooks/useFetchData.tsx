@@ -1,6 +1,6 @@
 import data from '../data/factwiseData.json';
 
-import type { UserType } from '../models/User';
+import type { UserType } from '../models';
 
 export function useFetchData() {
   // Ideally we would fetch data from an API here asyncronously, but for the sake of this assignment, we will use the local JSON file.
