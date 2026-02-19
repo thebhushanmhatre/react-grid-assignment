@@ -32,3 +32,14 @@ Other folder not present here but i generally like having them are:
 
 - services/ - For API Calls, to be used in customHooks
 - constants/ - For constant, config files, telemetry names, user/client friendly static messages
+
+### Results
+
+Please find the screenshots of the app and lighthouse report below:
+
+Lighthouse Report: [Please find the report here, Open it from File Explorer in your browser](./_results/lighthouse_report_localhost_4173-20260219T124011.html)
+Alternatively, ![Please find the screenshot here](./_results/lightHouseReport.JPG)
+
+Employees Page: ![Please find the screenshot here](./_results/EmployeesHomePage.JPG)
+
+Employee Details Page: ![Please find the screenshot here](./_results/EmployeeDetailsPage.JPG)
