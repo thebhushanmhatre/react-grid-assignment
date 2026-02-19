@@ -12,7 +12,11 @@ export const DepartmentCR = ({
     setFilterOnValue(value);
   };
 
-  return <span onClick={handleClick}>{value}</span>;
+  return (
+    <span role="button" onClick={handleClick} style={{ cursor: 'pointer' }}>
+      {value}
+    </span>
+  );
 };
 
 // Creating this Department Cell Renderer for demonstration

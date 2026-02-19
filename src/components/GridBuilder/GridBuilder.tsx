@@ -5,10 +5,13 @@ import {
   type FirstDataRenderedEvent,
 } from 'ag-grid-community';
 import { AgGridProvider, AgGridReact } from 'ag-grid-react'; // React Data Grid Component
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react';
 import './GridBuilder.styles.css';
 
 import type { AgGridReactProps } from 'ag-grid-react';
+
+const modules = [AllCommunityModule];
+
 // Grid Builder: Takes grid config and data to output grid
 export const GridBuilder = ({
   gridName,
@@ -17,31 +20,43 @@ export const GridBuilder = ({
   gridName: string;
   gridProps: AgGridReactProps;
 }) => {
-  const gridRef = useRef(null);
-  const modules = [AllCommunityModule];
+  const gridRef = useRef<AgGridReact>(null);
 
   // Ideally this should be in a utility file with some additional safety checks, but keeping it here for now
   // (This as in anything to do with localStorage)
-  const saveToLocalStorage = (columnState: ColumnState[]) => {
-    localStorage.setItem(`${gridName}-Col-State`, JSON.stringify(columnState));
-  };
+  const saveToLocalStorage = useCallback(
+    (columnState: ColumnState[]) => {
+      localStorage.setItem(
+        `${gridName}-Col-State`,
+        JSON.stringify(columnState),
+      );
+    },
+    [gridName],
+  );
 
-  const onColumnMoved = (e: ColumnMovedEvent) => {
-    // storing user preferences, keeping it basic for now
-    if (e.finished) {
-      saveToLocalStorage(e.api?.getColumnState());
-    }
-  };
+  const onColumnMoved = useCallback(
+    (e: ColumnMovedEvent) => {
+      // storing user preferences, keeping it basic for now
+      if (e.finished) {
+        const state = e.api?.getColumnState();
+        if (state) saveToLocalStorage(state);
+      }
+    },
+    [saveToLocalStorage],
+  );
 
-  const onFirstDataRendered = (e: FirstDataRenderedEvent) => {
-    const savedColState = localStorage.getItem(`${gridName}-Col-State`);
-    if (savedColState) {
-      e.api?.applyColumnState({
-        state: JSON.parse(savedColState),
-        applyOrder: true,
-      });
-    }
-  };
+  const onFirstDataRendered = useCallback(
+    (e: FirstDataRenderedEvent) => {
+      const savedColState = localStorage.getItem(`${gridName}-Col-State`);
+      if (savedColState) {
+        e.api?.applyColumnState({
+          state: JSON.parse(savedColState),
+          applyOrder: true,
+        });
+      }
+    },
+    [gridName],
+  );
 
   return (
     <AgGridProvider modules={modules}>

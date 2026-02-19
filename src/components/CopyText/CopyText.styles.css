@@ -1,0 +1,22 @@
+.copy-text-field {
+  margin-right: 10px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  background-color: #fffbeb;
+  border: 1px solid #b45309;
+  cursor: pointer;
+}
+
+.copy-text-icon {
+  margin-left: 5px;
+}
+
+.copy-text-field:hover {
+  background-color: #fef3c7;
+  border: 1px solid #d97706;
+}
+
+.copy-text-field:active {
+  background-color: gold;
+  border: 1px solid goldenrod;
+}

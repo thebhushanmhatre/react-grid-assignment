@@ -1,4 +1,18 @@
 .grid-container {
   height: 80vh;
   max-height: 80vh;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ag-row-odd {
+  background-color: #ffffff !important;
+}
+
+.ag-row-even {
+  background-color: #f5f7f9 !important;
+}
+
+.ag-row:hover {
+  background-color: #eef2f6 !important;
 }

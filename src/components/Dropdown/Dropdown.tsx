@@ -21,7 +21,9 @@ export const Dropdown = ({
   const labelId = label.replaceAll(' ', '-');
   return (
     <div className="dropdown-container">
-      <label htmlFor={labelId}>{label}</label>
+      <label htmlFor={labelId} className="dropdown-label">
+        {label}
+      </label>
       <select
         id={labelId}
         onChange={onChange}

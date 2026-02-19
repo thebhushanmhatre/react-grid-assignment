@@ -1,5 +1,5 @@
 import type { RowDoubleClickedEvent } from 'ag-grid-community';
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { useCallback, lazy, Suspense, useMemo, useState } from 'react';
 import { Dropdown, GridBuilder, Loading } from '../../components';
 import { useColDefs, useFetchData } from '../../hooks';
 import type { UserType } from '../../models';
@@ -22,8 +22,8 @@ export const Employees = () => {
 
   const employeesColDefs = useColDefs(
     employeesData,
-    // setGroupBy,
-    // setFilterOnValue,
+    setGroupBy,
+    setFilterOnValue,
   );
 
   const dataToDisplay = useMemo(() => {
@@ -39,7 +39,33 @@ export const Employees = () => {
     return employeesData;
   }, [employeesData, groupBy, filterOnValue]);
 
-  const userDetails = employeesData.find((user) => user.id === userId);
+  const userDetails = useMemo(
+    () => employeesData.find((user) => user.id === userId),
+    [employeesData, userId],
+  );
+
+  const handleRowDoubleClicked = useCallback((event: RowDoubleClickedEvent) => {
+    setUserId(event.data.id);
+  }, []);
+
+  const selectGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setGroupBy(e.target.value);
+    setFilterOnValue('');
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setGroupBy('');
+    setFilterOnValue('');
+  }, []);
+
+  const defaultColDef = useMemo(
+    () => ({
+      resizable: true,
+      sortable: true,
+      filter: true,
+    }),
+    [],
+  );
 
   if (userId) {
     if (userDetails)
@@ -57,16 +83,6 @@ export const Employees = () => {
 
     return <p>User not found</p>;
   }
-
-  const selectGroup = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGroupBy(e.target.value);
-    setFilterOnValue('');
-  };
-
-  const resetFilters = () => {
-    setGroupBy('');
-    setFilterOnValue('');
-  };
 
   return (
     <div className="employees-container">
@@ -88,6 +104,7 @@ export const Employees = () => {
           disabled={!groupBy}
         />
         <button
+          className="clear-filters-btn"
           type="button"
           onClick={resetFilters}
           disabled={!groupBy && !filterOnValue}
@@ -100,14 +117,8 @@ export const Employees = () => {
         gridProps={{
           rowData: dataToDisplay,
           columnDefs: employeesColDefs,
-          onRowDoubleClicked: (event: RowDoubleClickedEvent) =>
-            setUserId(event.data.id),
-          defaultColDef: {
-            resizable: true,
-            sortable: true,
-            filter: true,
-            autoHeight: true,
-          },
+          onRowDoubleClicked: handleRowDoubleClicked,
+          defaultColDef: defaultColDef,
         }}
       />
     </div>

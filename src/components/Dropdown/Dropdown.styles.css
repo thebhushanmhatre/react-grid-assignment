@@ -1,14 +1,51 @@
 .dropdown-container {
   display: flex;
-  font-size: 16px;
-  gap: 5px;
-  margin-right: 5px;
+  gap: 12px;
   align-items: center;
+  margin-right: 15px;
+}
+
+.dropdown-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
 }
 
 .dropdown-select {
-  padding: 5px;
-  border-radius: 5px;
-  width: 300px;
-  height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 250px;
+  height: 42px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  border: 1.5px solid #e5e7eb;
+  background-color: white;
+  color: #1f2937;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  appearance: none; /* removing the arrow as it was not looking good */
+}
+
+.dropdown-select:hover:not(:disabled) {
+  border-color: #646cff;
+}
+
+.dropdown-select:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.dropdown-select:disabled {
+  cursor: not-allowed;
+  background-color: #f9fafb;
+  color: #9ca3af;
+  border-color: #f3f4f6;
+}
+
+.dropdown-option {
+  font-family: inherit;
+  background-color: white;
+  color: #1f2937;
 }

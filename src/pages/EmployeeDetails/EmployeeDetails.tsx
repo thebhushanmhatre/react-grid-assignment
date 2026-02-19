@@ -1,5 +1,5 @@
 import './EmployeeDetails.styles.css';
-import { Tag } from '../../components';
+import { CopyText, Tag } from '../../components';
 import { extractHeader } from '../../utilities';
 
 import type { UserType } from '../../models';
@@ -69,6 +69,15 @@ const EmployeeDetails = ({
                   onClick={() => onTagClick(key, String(value))}
                 />
               )}
+            </p>
+          );
+        }
+
+        if (key == 'email') {
+          return (
+            <p key={key}>
+              <strong>{extractHeader(key)}</strong>:{' '}
+              <CopyText value={value as string} />
             </p>
           );
         }
