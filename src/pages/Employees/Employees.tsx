@@ -16,6 +16,7 @@ export const Employees = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [groupBy, setGroupBy] = useState<string>('');
   const [filterOnValue, setFilterOnValue] = useState<string>('');
+  const [showHP, setShowHP] = useState(false);
 
   const { employeesData, groupByKeys, valuesToSelectOptions } = useFetchData();
   const valueOptions = valuesToSelectOptions[groupBy];
@@ -84,6 +85,22 @@ export const Employees = () => {
     return <p>User not found</p>;
   }
 
+  // set background colour on even rows again, this looks bad, should be using CSS classes
+  const getRowStyle = useCallback(
+    (params) => {
+      if (showHP) {
+        if (params.node.data.performanceRating >= 4.5) {
+          return { background: 'lightgreen' };
+        }
+      }
+    },
+    [showHP],
+  );
+
+  const toggleHighPerformers = () => {
+    setShowHP((prev) => !prev);
+  };
+
   return (
     <div className="employees-container">
       <h1>Employee Directory</h1>
@@ -111,6 +128,14 @@ export const Employees = () => {
         >
           Clear Filters
         </button>
+
+        <button
+          className="clear-filters-btn"
+          type="button"
+          onClick={toggleHighPerformers}
+        >
+          {(showHP ? 'Hide' : 'Show') + ' High Performers'}
+        </button>
       </div>
       <GridBuilder
         gridName={'Employees'}
@@ -119,6 +144,7 @@ export const Employees = () => {
           columnDefs: employeesColDefs,
           onRowDoubleClicked: handleRowDoubleClicked,
           defaultColDef: defaultColDef,
+          getRowStyle,
         }}
       />
     </div>

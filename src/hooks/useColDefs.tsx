@@ -10,7 +10,7 @@ export function useColDefs(
 ) {
   return useMemo(() => {
     const colDefs: ColDef[] = [];
-    const skipColumns = ['id', 'salary', 'performanceRating'];
+    const skipColumns = ['id', 'salary'];
 
     if (!data || data.length === 0) return [];
 

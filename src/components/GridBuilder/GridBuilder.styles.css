@@ -6,13 +6,13 @@
 }
 
 .ag-row-odd {
-  background-color: #ffffff !important;
+  background-color: #ffffff;
 }
 
 .ag-row-even {
-  background-color: #f5f7f9 !important;
+  background-color: #f5f7f9;
 }
 
 .ag-row:hover {
-  background-color: #eef2f6 !important;
+  background-color: #eef2f6;
 }
