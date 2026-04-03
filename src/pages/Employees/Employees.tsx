@@ -45,19 +45,25 @@ export const Employees = () => {
     [employeesData, userId],
   );
 
-  const handleRowDoubleClicked = useCallback((event: RowDoubleClickedEvent) => {
-    setUserId(event.data.id);
-  }, []);
+  const handleRowDoubleClicked = useCallback(
+    (event: RowDoubleClickedEvent) => {
+      setUserId(event.data?.id);
+    },
+    [setUserId],
+  );
 
-  const selectGroup = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGroupBy(e.target.value);
-    setFilterOnValue('');
-  }, []);
+  const selectGroup = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setGroupBy(e.target.value);
+      setFilterOnValue('');
+    },
+    [setGroupBy, setFilterOnValue],
+  );
 
   const resetFilters = useCallback(() => {
     setGroupBy('');
     setFilterOnValue('');
-  }, []);
+  }, [setGroupBy, setFilterOnValue]);
 
   const defaultColDef = useMemo(
     () => ({
@@ -68,6 +74,24 @@ export const Employees = () => {
     [],
   );
 
+  const getRowStyle = useCallback(
+    (params) => {
+      if (showHP) {
+        if (params.node.data.performanceRating >= 4.5) {
+          return {
+            background: '#d4edda',
+          };
+        }
+      }
+    },
+    [showHP],
+  );
+
+  const toggleHighPerformers = useCallback(() => {
+    setShowHP((prev) => !prev);
+  }, []);
+
+  // Render details view if userId is selected
   if (userId) {
     if (userDetails)
       return (
@@ -85,22 +109,7 @@ export const Employees = () => {
     return <p>User not found</p>;
   }
 
-  // set background colour on even rows again, this looks bad, should be using CSS classes
-  const getRowStyle = useCallback(
-    (params) => {
-      if (showHP) {
-        if (params.node.data.performanceRating >= 4.5) {
-          return { background: 'lightgreen' };
-        }
-      }
-    },
-    [showHP],
-  );
-
-  const toggleHighPerformers = () => {
-    setShowHP((prev) => !prev);
-  };
-
+  // Render grid view
   return (
     <div className="employees-container">
       <h1>Employee Directory</h1>

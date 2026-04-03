@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import data from '../data/factwiseData.json';
+import data from '../data/mockData.json';
 
 import type { UserType } from '../models';
 

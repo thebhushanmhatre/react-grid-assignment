@@ -1,13 +1,13 @@
 # React Grid Assignment
 
-## Assignment: Frontend Dashboard with AG Grid
+I was given this takeaway home assignment at one company for a Senior Frontend Engineer role. (I had 24h to submit this solution)
 
-At FactWise, we use client-side AG Grid for all our tables and grids. We’d like you to create a robust and scalable functional dashboard using AG Grid that can handle large data sets efficiently.
+## Assignment: Frontend Dashboard with AG Grid
 
 ### Requirements:
 
 - Create a dashboard displaying tabular data using AG Grid in React (client-side rendering).
-- Use the sample dataset attached (20 rows) ([Stored locally for the sake of this assignment](./src/data/factwiseData.json))
+- Use the sample dataset attached (20 rows) ([Stored locally for the sake of this assignment](./src/data/mockData.json))
 - Feel free to be as creative as you can, while keeping the layout clean and professional.
 
 ### Steps to run on your local machine
